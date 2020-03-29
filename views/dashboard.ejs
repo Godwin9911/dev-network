@@ -1,0 +1,160 @@
+<% include ./partials/nav %>
+<% include ./partials/messages %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 border rounded bg-white m-1">
+      <h2>Dashboard</h2>
+      <p class="lead">Welcome <%= user.firstname %></p>
+      <div class="">
+        <p>This is where you manage your account and view your connections</p>
+      </div>
+      <hr />
+      <div>
+        <h5 class="d-none">Social</h5>
+        <p>Enter the Username of the corresponding social media to allow others connect with you via social media</p>
+        <form action="/users/socialupdate/<%= user.id %>" method="post">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fab fa-twitter"></i></span>
+            </div>
+            <input type="text" class="form-control" name="twitter" value="<%= typeof user.twitter != 'undefined' ? user.twitter : ''%>" placeholder="Username">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fab fa-github"></i></span>
+            </div>
+            <input type="text" class="form-control" name="github" value="<%= typeof user.github != 'undefined' ? user.github : ''%>" placeholder="Username">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+        <hr>
+        <div class=" text-center text-secondary">
+          <small>please contact me if you have any Questions about the platform</small>
+          <a class="btn"><i class="fas fa-at"></i></a>
+          <a class="btn"><i class="fab fa-twitter"></i></a>
+          <a class="btn"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="col p-0 m-1">
+      <div class="border mb-1 p-1 bg-white">
+        <P>Connections: 4</P>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <nav>
+            <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true"><i class="far fa-address-card"></i> Profile</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fas fa-cog"></i> Settings</a>
+            </div>
+          </nav>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <h5>Profile Information</h5>
+              <p class="text-secondary small">Information provided will be visible to other members on this platform, any Questions or issues concerning the platform should be directed here</p>
+              <small class="text-success">Your profile Information is Complete, your profile can be searched</small>
+              <table class="table table-borderless table-sm">
+                <tbody>
+                  <% if(user.firstname && user.lastname) { %>
+                  <tr>
+                    <th scope="row"><i class="fas fa-user-circle"></i></th>
+                    <td><%= user.firstname %> <%= user.lastname %></td>
+                  </tr>
+                  <% } %>
+                  <% if(user.position) { %>
+                  <tr>
+                    <th scope="row"><i class="fas fa-briefcase"></i></th>
+                    <td><%= user.position %></td>
+                  </tr>
+                  <% } %>
+                  <% if(user.bio) { %>
+                  <tr>
+                    <th scope="row"><i class="fas fa-clipboard-list"></i></th>
+                    <td><%= user.bio %></td>
+                  </tr>
+                  <% } %>
+                  <% if(user.location) { %>
+                  <tr>
+                    <th scope="row"><i class="fas fa-map-marker-alt"></i></th>
+                    <td><%= user.location %></td>
+                  </tr>
+                  <% } %>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <div class="col-md-10 mx-auto">
+                <h5 class="text-center mb-2"><i class="fas fa-user-plus"></i> Update Your Profile Information</h5>
+                <p class="small text-center text-secondary">Ensure your profile information is complete, in order to show on our search results</p>
+                <form action="/users/profileupdate/<%= user.id %>" method="post">
+                  <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Enter firstname" value="<%= user.firstname %>" maxlength="15" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Enter lastname" value="<%= user.lastname %>" maxlength="15" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" class="form-control" placeholder="Enter bio" maxlength="80" minlength="60" required><%= typeof user.bio != 'undefined' ? user.bio : ''%></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="position">Positon</label>
+                    <input type="text" id="position" name="position" class="form-control" placeholder="Enter position" maxlength="15" value="<%= typeof user.position != 'undefined' ? user.position : ''%>" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" class="form-control" placeholder="Enter location" maxlength="15" value="<%= typeof user.location != 'undefined' ? user.location : ''%>" required />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="border mt-1 bg-white p-2">
+        <h5>How to Upload your profile photo</h5>
+        <p>Go to favourite social media, inspect your profile picture element and copy the image url and paste in the form below then submit. <a href="#">help Video</a></p>
+        <form action="/users/imageupdate/<%= user.id %>" method="post">
+          <div class="input-group mb-4">
+            <input type="text" placeholder="image Url" name="image" value="<%= typeof user.image != 'undefined' ? user.image : ''%>" aria-describedby="image-url-textbox" class="form-control">
+            <div class="input-group-append">
+              <button id="image-url-button" type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-3 m-1">
+      <h3>Profile Card Preview</h3>
+      <p class="small">This is what other users see in the search results</p>
+      <div class="text-center border bg-white p-2">
+        <div class="w-50 mx-auto mt-4">
+          <picture>
+                <source srcset="<%= user.image %>" class="img-fluid rounded-circle">
+                <img src="/images/user.png" alt="default_image" style="width:auto;" class="img-fluid rounded-circle">
+          </picture>     
+        </div>
+        <div class="p-2">
+          <h4><%= user.firstname %> <%= user.lastname %></h4>
+          <p><%= user.position %></p>
+          <p class="text-secondary mt-1">"<%= user.bio %>"</p>
+          <small><%= user.location %>, Nigeria</small>
+        </div>
+        <div class="mb-2">
+          <h5 class="d-none">Social</h5>
+          <a class="btn"><i class="fas fa-at fa-2x"></i></a>
+          <a class="btn"><i class="fab fa-twitter fa-2x"></i></a>
+          <a class="btn"><i class="fab fa-github fa-2x"></i></a>
+        </div>
+      </div>
+      <p class="small text-secondary mt-2">Dev Network Nigeria was created by Godwin Agedah <br />&COPY; 2019 All Rights Reserved</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,71 @@
+<% include ./partials/nav %>
+<form action="/" method="get">
+  <div class="bg-secondary p-3">
+    <div class="input-group mt-4 border rounded-pill col-md-8 mx-auto bg-white p-2">
+      <input type="search" placeholder="Search eg frontend, Backend" name="search" aria-describedby="button-addon3" class="form-control bg-none border-0">
+      <div class="input-group-append border-0">
+        <button id="search-btn" type="submit" class="btn btn-link text-success"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    <div class="mt-3 text-primary text-center font-weight-bold mx-auto">
+       <!-- skillset-->
+       <div class="col-xs-4 custom-control custom-radio custom-control-inline">
+          <input type="radio" class="custom-control-input" id="defaultInline2" name="filter" value="position" checked>
+          <label class="custom-control-label" for="defaultInline2">Skillset</label>
+        </div>
+
+      <!-- Name-->
+      <div class="col-xs-4 custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="defaultInline1" name="filter" value="firstname">
+        <label class="custom-control-label" for="defaultInline1">Name</label>
+      </div>
+
+      <!-- location-->
+      <div class="col-xs-4 custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="defaultInline3" name="filter" value="location">
+        <label class="custom-control-label" for="defaultInline3">Location</label>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="container">
+  <div class="text-md-center">
+    <h2 class="d-none"><i class="fas fa-users"></i> Accounts: <%= totalcount %></h2>
+    <p>Connect by tapping the heart icon, only logged in users can Connect, create a free account <a href="@">here</a></p>
+  </div>
+  <div>
+    <div>
+
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <% users.map((user) => { %>
+        <div class="col-md-3 m-auto">
+          <div class="border rounded bg-white p-2 m-1">
+              <div class="text-right"><input type="checkbox" class="test" id="true" onclick="connect('<%= user.email %>', this.checked)"/></div>
+            <div class="w-50 mx-auto p-2">
+                <picture>
+                    <source srcset="<%= user.image %>" class="img-fluid rounded-circle">
+                    <img src="/images/user.png" alt="default_image" style="width:auto;" class="img-fluid rounded-circle">
+                </picture> 
+            </div>
+            <div class="text-center  p-2">
+              <h5><%= user.firstname %> <%= user.lastname %></h5>
+              <p><%= user.position %></p>
+              <p class="text-secondary mt-1 small">"<%= user.bio %>"</p>
+            </div>
+            <div class="mb-1 text-center ">
+              <div class="mb-1"><small><%= user.location %>, Nigeria</small></div>
+              <h5 class="d-none">Social</h5>
+              <a class="btn"><i class="fas fa-at fa-2x"></i></a>
+              <a class="btn"><i class="fab fa-twitter fa-2x"></i></a>
+              <a class="btn"><i class="fab fa-github fa-2x"></i></a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+  <p><%= pageNo %>/<%= pages %></p>
+</div>

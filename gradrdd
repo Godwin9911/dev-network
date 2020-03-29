@@ -1,0 +1,27 @@
+const validateCardExpiryDate = () => {
+		  const field = document.querySelector('#input');
+		  const match = expiryDateFormatIsValid(field);
+		  console.log("the",match);
+		  const date = new Date();
+		  const curYear = date.getFullYear() - 2000;
+		  const curMonth = date.getMonth();
+		  const newMonth = parseInt(field.value.slice(0));
+		  const newYear = parseInt(field.value.slice(2,));
+
+		  const checkDate = ((newMonth <= 12) && (newYear >= curYear));
+		  //console.log(checkDate)
+
+		  if(match && checkDate === true){
+			  flagIfInvalid(field, true);
+			  console.log("true date")
+			  return true;
+		  }else{
+			  flagIfInvalid(field, false);
+			  console.log("false date")
+			  return false;
+		  }
+	  };
+
+
+		if(!(event.KeyCode === (8 || 9 || 16 || 46 || 37 || 38 || 39 || 40))){
+					console.log(event.KeyCode)

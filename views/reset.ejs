@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <div class="col-md-6 p-0 m-auto">
+    <div class="card card-body">
+      <% include ./partials/messages %>
+      <h4 class="text-center mb-3"><i class="fas fa-user-plus"></i>Password Recovery</h4>
+      <form action="/users/reset/" method="post">
+        <div class="form-group">
+          <label for="name">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter your Email"
+            value="<%= typeof email != 'undefined' ? email : ''%>"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <p class="small text-secondary mt-3 text-center">A recovery mail will be sent to your email address</p>
+      </form>
+    </div>
+  </div>
+</div>
